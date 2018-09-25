@@ -1,54 +1,102 @@
+import java.util.Arrays;
+
+/**
+ * Land Class describe the terrain in the simulation. Contains
+ * Arrays which describe the sunlight hours in the terrain per
+ * grid point.
+ */
 public class Land{
 	
 	private float[][] gridSunlightHours;
+	private float[][] initialGridSunlightHours;
 	private int dx;
 	private int dy;
 	private final static float shadefraction = 0.1f; // only this fraction of light is transmitted by a tree
 
+	/**
+	 * Constructor for the Land object. Takes in the dimensions of the Land.
+	 * 
+	 * @param dx The x dimension of the terrain.
+	 * @param dy The y dimension of the terrain.
+	 */
 	Land(int dx, int dy) {
 		this.dx = dx;
 		this.dy = dy;
 		this.gridSunlightHours = new float[dx][dy];
 	}
 
+	/**
+	 * Get the length of the landscape in the x direction.
+	 * 
+	 * @return x dimension of the land.
+	 */
 	public int getDimX() {
 		return this.dx;
 	}
 	
 	/**
+	 * Get the length of the landscape in the y direction.
 	 * 
-	 * @return
+	 * @return y dimension of the land.
 	 */
 	public int getDimY() {
 		return this.dy;
 	}
 	
-	// Reset the shaded landscape to the same as the initial sun exposed landscape
-	// Needs to be done after each growth pass of the simulator
-	public void resetShade() {
-		// to do
+	
+	/**
+	 * Resets the current grid sunlight hours.
+	 */
+	public void resetSunlight() {
+		this.gridSunlightHours = Arrays.copyOf(
+			this.initialGridSunlightHours, this.initialGridSunlightHours.length
+		);
+	}
+
+	/**
+	 * Returns the sunlight value of individual grid points in the 
+	 * initialGridSunlightHoursArray.
+	 * 
+	 * @param x The x position of the grid point.
+	 * @param y The y position of the grid point.
+	 * @return The initial sunlight value of a grid point.
+	 */
+	public float getInitSun(int x, int y) {
+		return this.initialGridSunlightHours[x][y];
 	}
 	
-	public float getFull(int x, int y) {
-		// to do
-		return 0.0f; // incorrect value
+	/**
+	 * Sets the sunlght value of individual grids points in the 
+	 * initialGridSunlightHours Array.
+	 * 
+	 * @param x The x position of the grid point.
+	 * @param y The y position of the grid point.
+	 * @param val The value of the initial sunight on  grid point. 
+	 */
+	public void setInitSun(int x, int y, float val) {
+		this.initialGridSunlightHours[x][y] = val;
 	}
 	
-	public void setFull(int x, int y, float val) {
-		// to do 
+	/**
+	 * Gets the current value of sunlight at a grid point.
+	 * 
+	 * @param x The x position of the grid point. 
+	 * @param y The y position of the grid point. 
+	 * @return The current value of sunlight on that grid point.
+	 */
+	public float getSun(int x, int y) {
+		return this.gridSunlightHours[x][y];
 	}
 	
-	public float getShade(int x, int y) {
-		// to do 
-		return 0.0f; // incorrect value
+	/**
+	 * Sets the current value of the sunlight at a grid point.
+	 * 
+	 * @param x The x position of the grid point.
+	 * @param y The y position of the grid point.
+	 * @param val The current value of sunlight at that grid point. 
+	 */
+	public void setSun(int x, int y, float val){
+		this.gridSunlightHours[x][y] = val;
 	}
 	
-	public void setShade(int x, int y, float val){
-		// to do
-	}
-	
-	// reduce the 
-	public void shadow(Tree tree){
-		// to do
-	}
 }
