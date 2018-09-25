@@ -28,9 +28,9 @@ public class SunData{
 			sunmap = new Land(dimx,dimy);
 			for(int x = 0; x < dimx; x++)
 				for(int y = 0; y < dimy; y++) {
-					sunmap.setFull(x,y,sc.nextFloat());	
+					sunmap.setInitSun(x,y,sc.nextFloat());	
 				}
-			sunmap.resetShade();
+			sunmap.resetSunlight();
 			
 			// load forest
 			int numt = sc.nextInt();
@@ -64,7 +64,7 @@ public class SunData{
 			 PrintWriter printWriter = new PrintWriter(fileWriter);
 			 printWriter.printf("%d\n", trees.length);
 			 for(int t=0; t < trees.length; t++)
-				 printWriter.printf("%d %d %f\n", trees[t].getX(), trees[t].getY(), trees[t].getExt());
+				 printWriter.printf("%d %d %f\n", trees[t].getX(), trees[t].getY(), trees[t].getExtent());
 			 printWriter.close();
 		 }
 		 catch (IOException e){
