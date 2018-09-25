@@ -19,22 +19,41 @@ public class Tree{
 			this.xpos=x; this.ypos=y; this.ext=e;
 	}
 
+	/**
+	 * Empty constructor for the Tree object. 
+	 */
 	public Tree(){
 		this(0,0,0);
 	}
-		
+	
+	/**
+	 * Getter for the x position of the Tree Centre.
+	 * @return Tree centre x position.
+	 */
 	public int getX() {
 			return this.xpos;
 	}
-		
+	
+	/**
+	 * Getter for the y position for the tree center.
+	 * @return Tree centre y position.
+	 */
 	public int getY() {
 		return this.ypos;
 	}
-		
+	
+	/**
+	 * Returns the extent of a Tree Object.
+	 * @return Tree extent.
+	 */
 	public float getExtent() {
 		return this.ext;
 	}
-		
+	
+	/**
+	 * Sets the extent of the Tree.
+	 * @param e The new extent of the Tree. 
+	 */
 	public void setExt(float e) {
 			this.ext = e;
 	}
