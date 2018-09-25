@@ -17,7 +17,11 @@ vpath %.class $(BINDIR)
 .java.class:
 	$(JAVAC)	$(JFLAGS) $<
 
-all:
+all: Tree.class\
+		Land.class\
+		SunData.class\
+		ForestPanel.class\
+		TreeGrow.class\
 
 doc: all
 	javadoc -d $(DOCDIR) $(SRCDIR)/*.java
