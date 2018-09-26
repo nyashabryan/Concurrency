@@ -23,6 +23,9 @@ all: Tree.class\
 		ForestPanel.class\
 		TreeGrow.class\
 
+run:
+	java -cp $(BINDIR) TreeGrow sample_input.txt
+
 doc: all
 	javadoc -d $(DOCDIR) $(SRCDIR)/*.java
 
