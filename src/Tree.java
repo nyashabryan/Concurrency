@@ -25,6 +25,23 @@ public class Tree{
 	public Tree(){
 		this(0,0,0);
 	}
+
+	/**
+	 * Static method to create a Tree object from an array of values.
+	 * The Array is expected to be in the following format:
+	 * arr[0] = x position.
+	 * arr[1] = y position.
+	 * arr[2] = float value of the extent of the tree.
+	 * @param arr
+	 * @return new Tree object.
+	 */
+	public static Tree fromArray(String[] arr){
+		return new Tree(
+			(int)Integer.parseInt(arr[0]),
+			(int)Integer.parseInt(arr[1]),
+			(float)Float.parseFloat(arr[2])
+		);
+	}
 	
 	/**
 	 * Getter for the x position of the Tree Centre.
