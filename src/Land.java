@@ -23,6 +23,7 @@ public class Land{
 		this.dx = dx;
 		this.dy = dy;
 		this.gridSunlightHours = new float[dx][dy];
+		this.initialGridSunlightHours = new float[dx][dy];
 	}
 
 	/**
