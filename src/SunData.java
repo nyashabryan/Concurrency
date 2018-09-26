@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -19,38 +21,39 @@ public class SunData{
 	 * @param fileName From which the data is being loaded.
 	 */
 	public void readData(String fileName){ 
-		try{ 
-			Scanner sc = new Scanner(new File(fileName));
+		try{
+			BufferedReader reader =  new BufferedReader(new FileReader(fileName));
 			
 			// load sunmap
-			int dimx = sc.nextInt(); 
-			int dimy = sc.nextInt();
+			String[] line = reader.readLine().split(" ");
+			int dimx = (int) Integer.parseInt(line[0]);
+			int dimy = (int) Integer.parseInt(line[1]);
+			line = reader.readLine().split(" ");
 			sunmap = new Land(dimx,dimy);
 			for(int x = 0; x < dimx; x++)
 				for(int y = 0; y < dimy; y++) {
-					sunmap.setInitSun(x,y,sc.nextFloat());	
+					sunmap.setInitSun(x,y,Float.parseFloat(line[(x)*dimy + y]));	
 				}
 			sunmap.resetSunlight();
 			
 			// load forest
-			int numt = sc.nextInt();
+			int numt = (int) Integer.parseInt(reader.readLine());
 			trees = new Tree[numt];
 			for(int t=0; t < numt; t++)
 			{
-				int xloc = sc.nextInt();
-				int yloc = sc.nextInt();
-				float ext = (float) sc.nextInt();
-				trees[t] = new Tree(xloc, yloc, ext);
+				trees[t] = Tree.fromArray(reader.readLine().split(" "));
 			}
-			sc.close(); 
+			reader.close();
 		} 
 		catch (IOException e){ 
 			System.out.println("Unable to open input file "+fileName);
 			e.printStackTrace();
+			System.exit(0);
 		}
 		catch (java.util.InputMismatchException e){ 
 			System.out.println("Malformed input file "+fileName);
 			e.printStackTrace();
+			System.exit(0);
 		}
 	}
 	
