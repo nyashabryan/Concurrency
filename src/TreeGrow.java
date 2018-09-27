@@ -24,10 +24,10 @@ public class TreeGrow {
 	public static void setupGUI(int frameX,int frameY,Tree [] trees) {
 		Dimension fsize = new Dimension(800, 800);
 		// Frame init and dimensions
-    	JFrame frame = new JFrame("Photosynthesis"); 
-    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	frame.setPreferredSize(fsize);
-    	frame.setSize(800, 800);
+    	JFrame mainFrame = new JFrame("Photosynthesis"); 
+    	mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	mainFrame.setPreferredSize(fsize);
+    	mainFrame.setSize(800, 800);
     	
       	JPanel g = new JPanel();
         g.setLayout(new BoxLayout(g, BoxLayout.PAGE_AXIS)); 
@@ -40,10 +40,10 @@ public class TreeGrow {
 		scrollFrame.setPreferredSize(fsize);
 	    g.add(scrollFrame);
     	
-      	frame.setLocationRelativeTo(null);  // Center window on screen.
-      	frame.add(g); //add contents to window
-        frame.setContentPane(g);     
-        frame.setVisible(true);
+      	mainFrame.setLocationRelativeTo(null);  // Center window on screen.
+      	mainFrame.add(g); //add contents to window
+        mainFrame.setContentPane(g);     
+        mainFrame.setVisible(true);
         Thread fpt = new Thread(fp);
         fpt.start();
 	}
