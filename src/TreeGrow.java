@@ -30,7 +30,7 @@ public class TreeGrow {
 	}
 	
 	/**
-	 * Sets up the GUI of the application by creating a main frame and
+	 * Sets up the GUI of the application by creating a main frame(window) and
 	 * creating an object of the Forest Panel class. 
 	 * 
 	 * @param frameX Dimension of the main frame in the x direction.
@@ -64,7 +64,12 @@ public class TreeGrow {
         fpt.start();
 	}
 	
-		
+	/**
+	 * The main method of the application. This is the controller of the application. 
+	 * Where the application is started.
+	 * 
+	 * @param args The fileName of the input data.
+	 */		
 	public static void main(String[] args) {
 		SunData sundata = new SunData();
 		
