@@ -11,16 +11,32 @@ public class TreeGrow {
 	static int frameY;
 	static ForestPanel fp;
 
-	// start timer
+	/**
+	 * Starts log measurement of time by storing the current value of
+	 * time as a static long value. 
+	 */
 	private static void tick(){
 		startTime = System.currentTimeMillis();
 	}
 	
-	// stop timer, return time elapsed in seconds
+	/**
+	 * Calculate the time elapsed since tick function was called as a
+	 * long value in milliseconds.
+	 * 
+	 * @return Time elapsed.
+	 */
 	private static float tock(){
 		return (System.currentTimeMillis() - startTime) / 1000.0f; 
 	}
 	
+	/**
+	 * Sets up the GUI of the application by creating a main frame and
+	 * creating an object of the Forest Panel class. 
+	 * 
+	 * @param frameX Dimension of the main frame in the x direction.
+	 * @param frameY Dimension of the main frame in the x direction.
+	 * @param trees The array of trees. 
+	 */
 	public static void setupGUI(int frameX,int frameY,Tree [] trees) {
 		Dimension fsize = new Dimension(800, 800);
 		// Frame init and dimensions
