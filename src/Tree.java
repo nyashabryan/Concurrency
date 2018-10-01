@@ -69,6 +69,7 @@ public class Tree{
 	
 	/**
 	 * Sets the extent of the Tree.
+	 * 
 	 * @param e The new extent of the Tree. 
 	 */
 	public void setExt(float e) {
@@ -77,6 +78,7 @@ public class Tree{
 	
 	/**
 	 * Returns the Tree getGrowFactor
+	 * 
 	 * @return Tree growFactor
 	 */
 	public static float getGrowFactor(){
