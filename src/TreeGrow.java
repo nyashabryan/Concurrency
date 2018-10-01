@@ -38,12 +38,12 @@ public class TreeGrow {
 	 * @param trees The array of trees. 
 	 */
 	public static void setupGUI(int frameX,int frameY,Tree [] trees) {
-		Dimension fsize = new Dimension(800, 800);
+		Dimension fsize = new Dimension(600, 600);
 		// Frame init and dimensions
     	JFrame mainFrame = new JFrame("Photosynthesis"); 
     	mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	mainFrame.setPreferredSize(fsize);
-    	mainFrame.setSize(800, 800);
+    	mainFrame.setSize(600, 600);
     	
       	JPanel g = new JPanel();
         g.setLayout(new BoxLayout(g, BoxLayout.PAGE_AXIS)); 
@@ -89,5 +89,7 @@ public class TreeGrow {
 		setupGUI(frameX, frameY, sundata.trees);
 		
 		// create and start simulation loop here as separate thread
+		Simulation simulation = new Simulation(sundata.trees);
+		simulation.start();
 	}
 }
