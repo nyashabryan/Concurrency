@@ -20,11 +20,12 @@ vpath %.class $(BINDIR)
 all: Tree.class\
 		Land.class\
 		SunData.class\
+		Simulation.class\
 		ForestPanel.class\
 		TreeGrow.class\
 
 run:
-	java -cp $(BINDIR) TreeGrow sample_input.txt
+	java -cp $(BINDIR) TreeGrow sample_in.txt
 
 doc: all
 	javadoc -d $(DOCDIR) $(SRCDIR)/*.java
