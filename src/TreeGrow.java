@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class TreeGrow {
 	static long startTime = 0;
@@ -37,7 +38,7 @@ public class TreeGrow {
 	 * @param frameY Dimension of the main frame in the x direction.
 	 * @param trees The array of trees. 
 	 */
-	public static void setupGUI(int frameX,int frameY,Tree [] trees) {
+	public static void setupGUI(int frameX,int frameY,Tree [][] trees) {
 		Dimension fsize = new Dimension(600, 600);
 		// Frame init and dimensions
     	JFrame mainFrame = new JFrame("Photosynthesis"); 
@@ -86,10 +87,23 @@ public class TreeGrow {
 		
 		frameX = sundata.sunmap.getDimX();
 		frameY = sundata.sunmap.getDimY();
+		System.out.println(frameX);
+		System.out.println(frameY);
 		setupGUI(frameX, frameY, sundata.trees);
 		
+		
+		System.out.println(sundata.sunmap.initialGridSunlightHours);
+		System.out.println(sundata.sunmap.gridSunlightHours);
+		System.out.println(sundata.sunmap.getSun(1, 1));
+		System.out.println(sundata.sunmap.getInitSun(1, 1));
+		sundata.sunmap.setSun(1, 1, 12);
+		System.out.println(sundata.sunmap.getSun(1, 1));
+		System.out.println(sundata.sunmap.getInitSun(1, 1));
+
 		// create and start simulation loop here as separate thread
-		Simulation simulation = new Simulation(sundata.trees);
+		Land land = sundata.sunmap;
+		System.out.println(land);
+		Simulation simulation = new Simulation(sundata.trees, land);
 		simulation.start();
 	}
 }
