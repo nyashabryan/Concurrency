@@ -7,8 +7,8 @@ import java.util.Arrays;
  */
 public class Land{
 	
-	private float[][] gridSunlightHours;
-	private float[][] initialGridSunlightHours;
+	float[][] gridSunlightHours;
+	float[][] initialGridSunlightHours;
 	private int dx;
 	private int dy;
 	private final static float shadefraction = 0.1f; // only this fraction of light is transmitted by a tree
@@ -49,9 +49,11 @@ public class Land{
 	 * Resets the current grid sunlight hours.
 	 */
 	public void resetSunlight() {
-		this.gridSunlightHours = Arrays.copyOf(
-			this.initialGridSunlightHours, this.initialGridSunlightHours.length
-		);
+		for (int i = 0; i < this.dx; i++){
+			this.gridSunlightHours[i] = Arrays.copyOf(initialGridSunlightHours[i],
+				this.initialGridSunlightHours.length	
+			);
+		}
 	}
 
 	/**
