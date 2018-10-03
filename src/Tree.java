@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.util.Random;
 /**
  * The Tree class. Adapted from James Gain.
  */
@@ -6,9 +8,9 @@ public class Tree{
 	private int xpos;	// x-coordinate of center of tree canopy
 	private int ypos;	// y-coorindate of center of tree canopy
 	private float ext;	// extent of canopy out in vertical and horizontal from center	
-	public final static float growfactor = 1000.0f; // divide average sun exposure by this amount to get growth in extent
+	public final static float growfactor = 100.0f; // divide average sun exposure by this amount to get growth in extent
 	public final static float shadefactor = 10.0f; // divide the sun exposure for a cell by this when reducing sunlight.
-	
+	public final Color color;
 	/**
 	 * Constructor for the Tree class.
 	 * @param x The x coordinate position for the tree center.
@@ -17,6 +19,8 @@ public class Tree{
 	 */
 	public Tree(int x, int y, float e){
 			this.xpos=x; this.ypos=y; this.ext=e;
+			Random rnd = new Random();
+			this.color = new Color(rnd.nextInt(100), 150+rnd.nextInt(100), rnd.nextInt(100));
 	}
 
 	/**
