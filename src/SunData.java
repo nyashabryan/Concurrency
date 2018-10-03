@@ -2,9 +2,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.Arrays;
 
 /**
  * The SunData Class describes the landscape as a Land object
@@ -13,8 +16,9 @@ import java.io.PrintWriter;
 public class SunData{
 	
 	Land sunmap; // regular grid with average daily sunlight stored at each grid point
-	Tree [] trees; // array of individual tress located on the sunmap	
-	
+	Tree [][] trees; // array of arrays of individual tress located on the sunmap
+	public static final int numberOfLayers = 10;
+	public static final int layerSize = 2;
 	/**
 	 * Takes in Landscape data from a file and loads it into a Land object
 	 * and an Array of Trees.
@@ -38,11 +42,34 @@ public class SunData{
 			
 			// load forest
 			int numt = (int) Integer.parseInt(reader.readLine());
-			trees = new Tree[numt];
+			
+			ArrayList<ArrayList<Tree>> listOfTrees = new ArrayList<ArrayList<Tree>>(numberOfLayers);
+			for(int i = 0; i < numberOfLayers; i++){
+				listOfTrees.add(new ArrayList<Tree>());
+			}
+			System.out.println(numt);
 			for(int t=0; t < numt; t++)
 			{
-				trees[t] = Tree.fromArray(reader.readLine().split(" "));
+				line = reader.readLine().trim().split(" ");
+				int layerIndex = (int)Float.parseFloat(line[2])/layerSize;
+				List<Tree> aList = listOfTrees.get(layerIndex);
+				aList.add(Tree.fromArray(line));
+
 			}
+
+			trees = new Tree[][]{
+
+				Arrays.copyOf(listOfTrees.get(0).toArray(),listOfTrees.get(0).size(), Tree[].class),
+				Arrays.copyOf(listOfTrees.get(1).toArray(),listOfTrees.get(1).size(), Tree[].class),
+				Arrays.copyOf(listOfTrees.get(2).toArray(),listOfTrees.get(2).size(), Tree[].class),
+				Arrays.copyOf(listOfTrees.get(3).toArray(),listOfTrees.get(3).size(), Tree[].class),
+				Arrays.copyOf(listOfTrees.get(4).toArray(),listOfTrees.get(4).size(), Tree[].class),
+				Arrays.copyOf(listOfTrees.get(5).toArray(),listOfTrees.get(5).size(), Tree[].class),
+				Arrays.copyOf(listOfTrees.get(6).toArray(),listOfTrees.get(6).size(), Tree[].class),
+				Arrays.copyOf(listOfTrees.get(7).toArray(),listOfTrees.get(7).size(), Tree[].class),
+				Arrays.copyOf(listOfTrees.get(8).toArray(),listOfTrees.get(8).size(), Tree[].class),
+				Arrays.copyOf(listOfTrees.get(9).toArray(),listOfTrees.get(9).size(), Tree[].class),
+			};
 			reader.close();
 		} 
 		catch (IOException e){ 
@@ -62,18 +89,18 @@ public class SunData{
 	 * @param fileName of the file where output will be written. 
 	 */
 	public void writeData(String fileName){
-		 try{ 
-			 FileWriter fileWriter = new FileWriter(fileName);
-			 PrintWriter printWriter = new PrintWriter(fileWriter);
-			 printWriter.printf("%d\n", trees.length);
-			 for(int t=0; t < trees.length; t++)
-				 printWriter.printf("%d %d %f\n", trees[t].getX(), trees[t].getY(), trees[t].getExtent());
-			 printWriter.close();
+		try{ 
+			FileWriter fileWriter = new FileWriter(fileName);
+			PrintWriter printWriter = new PrintWriter(fileWriter);
+			printWriter.printf("%d\n", trees.length);
+			for(int t=0; t < numberOfLayers; t++)
+				for(int s = 0; s < trees[t].length; s++)
+				printWriter.printf("%d %d %f\n", trees[t][s].getX(), trees[t][s].getY(), trees[t][s].getExtent());
+			printWriter.close();
 		 }
 		 catch (IOException e){
 			 System.out.println("Unable to open output file "+fileName);
 				e.printStackTrace();
 		 }
 	}
-	
 }
