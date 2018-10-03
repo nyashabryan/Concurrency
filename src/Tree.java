@@ -5,9 +5,9 @@ public class Tree{
 	
 	private int xpos;	// x-coordinate of center of tree canopy
 	private int ypos;	// y-coorindate of center of tree canopy
-	private float ext;	// extent of canopy out in vertical and horizontal from center
-		
+	private float ext;	// extent of canopy out in vertical and horizontal from center	
 	public final static float growfactor = 1000.0f; // divide average sun exposure by this amount to get growth in extent
+	public final static float shadefactor = 10.0f; // divide the sun exposure for a cell by this when reducing sunlight.
 	
 	/**
 	 * Constructor for the Tree class.
@@ -76,6 +76,55 @@ public class Tree{
 			this.ext = e;
 	}
 	
+	/**
+	 * Grows the tree by increasing the tree's extent.
+	 * 
+	 * @param e The float value the tree is going to grow by.
+	 */
+	public void grow(float e){
+		this.ext+= e;
+	}
+	
+	/**
+	 * Runs the tree level simulation for each of the trees.
+	 * 
+	 */
+	public void simulate(Land sunmap){
+		float averageSunHours = calculateAverageSun(sunmap);
+		reduceHours(sunmap);
+		this.grow(averageSunHours/growfactor);
+	}
+
+	/**
+	 * Reduces the Sun hours on a area the tree is covering. 
+	 * @param sunmap
+	 */
+	public void reduceHours(Land sunmap){
+		for (int i = this.xpos - Math.round(this.ext); i < this.xpos + Math.round(this.ext) + 1; i++){
+			for (int j = this.ypos - Math.round(this.ext); j < this.ypos + Math.round(this.ext) + 1; j++){
+				if (i < 0 || j < 0 || i > sunmap.getDimX()-1 || j > sunmap.getDimY()-1)
+					continue;
+				sunmap.setSun(i, j, sunmap.getSun(i, j)/shadefactor); ;
+			}
+		}
+	}
+
+	/**
+	 * Calcualate the average sunlight for each tree. 
+	 * @param sunmap
+	 * @return average sunlight of tree cells. 
+	 */
+	public float calculateAverageSun(Land sunmap){
+		float total = 0;
+		for (int i = this.xpos - Math.round(this.ext); i < this.xpos + Math.round(this.ext) + 1; i++){
+			for (int j = this.ypos - Math.round(this.ext); j < this.ypos + Math.round(this.ext) + 1; j++){
+				if (i < 0 || j < 0 || i > sunmap.getDimX()-1 || j > sunmap.getDimY()-1)
+					continue;
+				total += sunmap.getSun(i, j);
+			}
+		}
+		return  total/((float)Math.pow(Math.round(this.ext),2));
+	}
 	/**
 	 * Returns the Tree getGrowFactor
 	 * 
