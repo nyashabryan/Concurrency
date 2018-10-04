@@ -105,8 +105,8 @@ public class ForestPanel extends JPanel implements Runnable {
 				right.join();
 
 			}else{
-					for(int rt = low; rt < high; rt++){
-							g.setColor(trees[rt].color);
+				for(int rt = low; rt < high; rt++){
+					g.setColor(trees[rt].color);
 					int X = trees[rt].getX();
 					int Y = trees[rt].getY();
 					int extent = (int)trees[rt].getExtent();
@@ -114,16 +114,17 @@ public class ForestPanel extends JPanel implements Runnable {
 					int x1 = X - extent;
 					int x2 = X + extent;
 					int y2 = Y + extent;
-							if (y1 < 0)
-								y1 = 0;
-							if (x1 < 0)
-								x1 = 0;
-							if (x2 > width)
-								x2 = width;
-							if (y2 > height)
-								y2 = height;
-							g.fillRect(x1, y1, x2 - x1, y2 -y1);
-						}
+					if (y1 < 0)
+					
+						y1 = 0;
+					if (x1 < 0)
+						x1 = 0;
+					if (x2 > width)
+						x2 = width;
+					if (y2 > height)
+						y2 = height;
+					g.fillRect(x1, y1, x2 - x1, y2 -y1);
+				}
 			}
 		}
 	}

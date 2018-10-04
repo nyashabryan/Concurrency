@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Land Class describe the terrain in the simulation. Contains
@@ -7,6 +8,7 @@ import java.util.Arrays;
  */
 public class Land{
 	
+	AtomicInteger yearNumber = new AtomicInteger(0);
 	float[][] gridSunlightHours;
 	float[][] initialGridSunlightHours;
 	private int dx;

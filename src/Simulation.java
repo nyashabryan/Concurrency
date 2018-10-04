@@ -20,6 +20,7 @@ public class Simulation extends Thread{
                         tree.simulate(sunmap);
                     }
                 }
+                sunmap.yearNumber.incrementAndGet();
                 sunmap.resetSunlight();
                 try{
                     Thread.sleep(2000);

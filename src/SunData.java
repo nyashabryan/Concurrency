@@ -19,6 +19,7 @@ public class SunData{
 	Tree [][] trees; // array of arrays of individual tress located on the sunmap
 	public static final int numberOfLayers = 10;
 	public static final int layerSize = 2;
+	int numberOfTrees = 0;
 	/**
 	 * Takes in Landscape data from a file and loads it into a Land object
 	 * and an Array of Trees.
@@ -42,7 +43,7 @@ public class SunData{
 			
 			// load forest
 			int numt = (int) Integer.parseInt(reader.readLine());
-			
+			numberOfTrees = numt;
 			ArrayList<ArrayList<Tree>> listOfTrees = new ArrayList<ArrayList<Tree>>(numberOfLayers);
 			for(int i = 0; i < numberOfLayers; i++){
 				listOfTrees.add(new ArrayList<Tree>());
