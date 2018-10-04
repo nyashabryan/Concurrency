@@ -1,16 +1,21 @@
 import javax.swing.*;
+
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TreeGrow {
 	static long startTime = 0;
 	static int frameX;
 	static int frameY;
 	static ForestPanel fp;
+	static SunData sundata;
+	
 
 	/**
 	 * Starts log measurement of time by storing the current value of
@@ -45,11 +50,56 @@ public class TreeGrow {
     	mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	mainFrame.setPreferredSize(fsize);
     	mainFrame.setSize(600, 600);
+		mainFrame.setLayout(new GridLayout(2,1));
     	
       	JPanel g = new JPanel();
         g.setLayout(new BoxLayout(g, BoxLayout.PAGE_AXIS)); 
-      	g.setPreferredSize(fsize);
+		  g.setPreferredSize(new Dimension(500, 500));
+		  
+		// Define the buttons 
+		JButton pauseButton = new JButton("PAUSE");
+		pauseButton.addActionListener(new ActionListener(){
+		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TreeGrow.pauseSimulation();
+			}
+		});
+
+		JButton playButton = new JButton("PLAY");
+		playButton.addActionListener(new ActionListener(){
+		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TreeGrow.resumeSimulation();
+			}
+		});
+		
+		JButton resetButton = new JButton("RESET");
+		resetButton.addActionListener(new ActionListener(){
+		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TreeGrow.resetSimulation();
+			}
+		});
+
+		JButton endButton = new JButton("END");
+		endButton.addActionListener(new ActionListener(){
+		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TreeGrow.endSimulation();
+			}
+		});
+
+		JPanel buttonFrame =  new JPanel();
+		buttonFrame.add(endButton);
+		buttonFrame.add(pauseButton);
+		buttonFrame.add(playButton);
+		buttonFrame.add(resetButton);
  
+		//mainFrame.add(buttonFrame);
 		fp = new ForestPanel(trees);
 		fp.setPreferredSize(new Dimension(frameX,frameY));
 		JScrollPane scrollFrame = new JScrollPane(fp);
@@ -57,6 +107,13 @@ public class TreeGrow {
 		scrollFrame.setPreferredSize(fsize);
 	    g.add(scrollFrame);
     	
+		// Add buttons to G
+		/*
+		g.add(endButton);
+		g.add(pauseButton);
+		g.add(playButton);
+		g.add(resetButton);
+    	*/
       	mainFrame.setLocationRelativeTo(null);  // Center window on screen.
       	mainFrame.add(g); //add contents to window
         mainFrame.setContentPane(g);     
@@ -72,7 +129,7 @@ public class TreeGrow {
 	 * @param args The fileName of the input data.
 	 */		
 	public static void main(String[] args) {
-		SunData sundata = new SunData();
+		sundata = new SunData();
 		
 		// check that number of command line arguments is correct
 		if(args.length != 1)
@@ -105,5 +162,29 @@ public class TreeGrow {
 		System.out.println(land);
 		Simulation simulation = new Simulation(sundata.trees, land);
 		simulation.start();
+	}
+
+
+	public static void endSimulation(){
+		System.exit(0);
+	}
+
+	public static void resetSimulation(){
+		pauseSimulation();
+		sundata.sunmap.resetSunlight();
+		for (Tree[] trees: sundata.trees){
+			for(Tree tree: trees){
+				tree.resetExtent();
+			}
+		}
+		resumeSimulation();
+	}
+
+	public static void resumeSimulation(){
+		;
+	}
+
+	public static void pauseSimulation(){
+		;
 	}
 }
