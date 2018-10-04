@@ -1,13 +1,16 @@
 import java.lang.Thread;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Simulation extends Thread{
 
     Tree[][] trees;
     Land sunmap;
+    AtomicBoolean running;
 
-    public Simulation(Tree[][] trees, Land sunmap){
+    public Simulation(Tree[][] trees, Land sunmap, AtomicBoolean running){
         this.trees = trees;        
         this.sunmap = sunmap;
+        this.running = running;
     }
 
     @Override
@@ -15,6 +18,7 @@ public class Simulation extends Thread{
 
         while(true){    
             try{
+                while(!running.get()){}
                 for(int i = 9; i >= 0; i--){
                     for (Tree tree: trees[i]){
                         tree.simulate(sunmap);

@@ -15,8 +15,8 @@ public class TreeGrow {
 	static int frameY;
 	static ForestPanel fp;
 	static SunData sundata;
+	static AtomicBoolean running = new AtomicBoolean(true);
 	
-
 	/**
 	 * Starts log measurement of time by storing the current value of
 	 * time as a static long value. 
@@ -160,7 +160,7 @@ public class TreeGrow {
 		// create and start simulation loop here as separate thread
 		Land land = sundata.sunmap;
 		System.out.println(land);
-		Simulation simulation = new Simulation(sundata.trees, land);
+		Simulation simulation = new Simulation(sundata.trees, land, running);
 		simulation.start();
 	}
 
@@ -181,10 +181,10 @@ public class TreeGrow {
 	}
 
 	public static void resumeSimulation(){
-		;
+		running.getAndSet(true);
 	}
 
 	public static void pauseSimulation(){
-		;
+		running.getAndSet(false);
 	}
 }
