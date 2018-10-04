@@ -137,4 +137,11 @@ public class Tree{
 	public static float getGrowFactor(){
 		return Tree.growfactor;
 	}
+
+	/**
+	 * Resets the extent of a tree to a value of 0.4.
+	 */
+	public void resetExtent(){
+		this.setExt(0.4f);
+	}
 }
