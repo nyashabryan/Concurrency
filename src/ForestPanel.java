@@ -105,7 +105,11 @@ public class ForestPanel extends JPanel implements Runnable {
 				right.join();
 
 			}else{
-				for(int rt = low; rt < high; rt++){
+				ArrayList<Integer> pickingOrder = new ArrayList<Integer>();
+				for(int i = low; i < high; i++)
+					pickingOrder.add(i);
+				Collections.shuffle(pickingOrder);
+				for(int rt: pickingOrder){
 					g.setColor(trees[rt].color);
 					int X = trees[rt].getX();
 					int Y = trees[rt].getY();
@@ -115,7 +119,7 @@ public class ForestPanel extends JPanel implements Runnable {
 					int x2 = X + extent;
 					int y2 = Y + extent;
 					if (y1 < 0)
-					
+
 						y1 = 0;
 					if (x1 < 0)
 						x1 = 0;
