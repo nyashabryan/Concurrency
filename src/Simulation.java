@@ -58,15 +58,11 @@ public class Simulation extends Thread{
             this.low = low;
             this.high = high;
             this.sunmap = sunmap;
-            System.out.println("High");
-            System.out.println(high - low);
-            System.out.println("Lenght");
-            System.out.println(trees.length);
         }
 
         @Override
         protected void compute(){
-            if(this.high - this.low <= (int)(this.trees.length/2)){
+            if(this.high - this.low <= (int)(this.trees.length/5)){
                 for(int i = low; i < high; i++){
                     trees[i].simulate(sunmap);
                 }
