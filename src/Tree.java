@@ -128,6 +128,9 @@ public class Tree{
 				total += sunmap.getSun(i, j);
 			}
 		}
+		if (Math.round(this.ext) == 0){
+			return total;
+		}
 		return  total/((float)Math.pow(Math.round(this.ext),2));
 	}
 	/**

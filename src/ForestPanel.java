@@ -23,7 +23,8 @@ public class ForestPanel extends JPanel implements Runnable {
 	 */
 	@Override
 	public void paintComponent(Graphics g) {
-		int width = getWidth();
+		if (TreeGrow.running.get()){
+			int width = getWidth();
 		int height = getHeight();
 		g.clearRect(0,0,width,height);
 		    
@@ -33,6 +34,7 @@ public class ForestPanel extends JPanel implements Runnable {
 			pool.invoke(new RenderParallel(g, forest[i], 0, forest[i].length, width, height));
 		}
 		//System.out.println(System.currentTimeMillis() - init);
+		}
 	}
 	
 	/**
@@ -42,7 +44,6 @@ public class ForestPanel extends JPanel implements Runnable {
 	public void run() {
 			
 		// reordering so that trees are rendered in a more random fashion
-		while(!TreeGrow.running.get()){}
 		rndorder = new ArrayList<Integer>();
 		for(int l = 0; l < forest.length; l++)
 			rndorder.add(l);
@@ -52,7 +53,7 @@ public class ForestPanel extends JPanel implements Runnable {
 		while(true) {
 			repaint();
 			try {
-				Thread.sleep(20); 
+				Thread.sleep(200); 
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			};
@@ -98,14 +99,7 @@ public class ForestPanel extends JPanel implements Runnable {
 		 */
 		@Override
 		protected void compute(){
-			if(this.high - this.low >= (int)trees.length/5){
-				RenderParallel left = new RenderParallel(g, trees, low, (int)((high + low)/2) , width, height);
-				RenderParallel right = new RenderParallel(g, trees, (int)((high + low)/2), high, width, height);
-				right.fork();
-				left.compute();
-				right.join();
-
-			}else{
+			if(this.high - this.low <= (int)(trees.length/5)){
 				ArrayList<Integer> pickingOrder = new ArrayList<Integer>();
 				for(int i = low; i < high; i++)
 					pickingOrder.add(i);
@@ -124,12 +118,23 @@ public class ForestPanel extends JPanel implements Runnable {
 						y1 = 0;
 					if (x1 < 0)
 						x1 = 0;
-					if (x2 > width)
+					if (x2 >= width)
 						x2 = width;
-					if (y2 > height)
+					if (y2 >= height)
 						y2 = height;
-					g.fillRect(x1, y1, x2 - x1, y2 -y1);
+					try{
+						g.fillRect(x1, y1, x2 - x1, y2 -y1);
+					}catch(NullPointerException e){
+						System.out.println("Null");
+					}
+					
 				}
+			}else{
+				RenderParallel left = new RenderParallel(g, trees, low, (int)((high + low)/2) , width, height);
+				RenderParallel right = new RenderParallel(g, trees, (int)((high + low)/2), high, width, height);
+				right.fork();
+				left.compute();
+				right.join();
 			}
 		}
 	}

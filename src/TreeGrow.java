@@ -55,8 +55,9 @@ public class TreeGrow {
     	
       	JPanel g = new JPanel();
         g.setLayout(new BoxLayout(g, BoxLayout.PAGE_AXIS)); 
-		  g.setPreferredSize(new Dimension(500, 500));
-		  
+		g.setPreferredSize(new Dimension(500, 500));
+		
+		YearLabel currentYear = new YearLabel();
 		// Define the buttons 
 		JButton pauseButton = new JButton("PAUSE");
 		pauseButton.addActionListener(new ActionListener(){
@@ -93,6 +94,7 @@ public class TreeGrow {
 			}
 		});
 		JPanel buttonPanel =  new JPanel();
+		buttonPanel.add(currentYear);
 		buttonPanel.add(endButton);
 		buttonPanel.add(pauseButton);
 		buttonPanel.add(playButton);
@@ -107,13 +109,6 @@ public class TreeGrow {
 		scrollFrame.setPreferredSize(fsize);
 	    g.add(scrollFrame);
     	
-		// Add buttons to G
-		/*
-		g.add(endButton);
-		g.add(pauseButton);
-		g.add(playButton);
-		g.add(resetButton);
-    	*/
       	mainFrame.setLocationRelativeTo(null);  // Center window on screen.
       	mainFrame.add(g); //add contents to window
         mainFrame.setContentPane(g);     
@@ -122,7 +117,12 @@ public class TreeGrow {
 		// Add buttonPanel to the mainFrame
 		mainFrame.add(buttonPanel);
         Thread fpt = new Thread(fp);
-        fpt.start();
+		fpt.start();
+		
+		
+
+		Thread yearThread = new Thread(currentYear);
+		yearThread.start();
 	}
 	
 	/**
@@ -171,6 +171,7 @@ public class TreeGrow {
 				tree.resetExtent();
 			}
 		}
+		TreeGrow.sundata.sunmap.yearNumber.set(0);
 		resumeSimulation();
 	}
 
