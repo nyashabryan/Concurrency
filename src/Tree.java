@@ -51,7 +51,7 @@ public class Tree{
 	 * Getter for the x position of the Tree Centre.
 	 * @return Tree centre x position.
 	 */
-	public int getX() {
+	synchronized public int getX() {
 			return this.xpos;
 	}
 	
@@ -59,7 +59,7 @@ public class Tree{
 	 * Getter for the y position for the tree center.
 	 * @return Tree centre y position.
 	 */
-	public int getY() {
+	synchronized public int getY() {
 		return this.ypos;
 	}
 	
@@ -67,7 +67,7 @@ public class Tree{
 	 * Returns the extent of a Tree Object.
 	 * @return Tree extent.
 	 */
-	public float getExtent() {
+	synchronized public float getExtent() {
 		return this.ext;
 	}
 	
@@ -76,7 +76,7 @@ public class Tree{
 	 * 
 	 * @param e The new extent of the Tree. 
 	 */
-	public void setExt(float e) {
+	synchronized public void setExt(float e) {
 			this.ext = e;
 	}
 	
@@ -85,7 +85,7 @@ public class Tree{
 	 * 
 	 * @param e The float value the tree is going to grow by.
 	 */
-	public void grow(float e){
+	synchronized public void grow(float e){
 		this.ext+= e;
 	}
 	
@@ -93,7 +93,7 @@ public class Tree{
 	 * Runs the tree level simulation for each of the trees.
 	 * 
 	 */
-	public void simulate(Land sunmap){
+	synchronized public void simulate(Land sunmap){
 		float averageSunHours = calculateAverageSun(sunmap);
 		reduceHours(sunmap);
 		this.grow(averageSunHours/growfactor);
@@ -120,8 +120,9 @@ public class Tree{
 	 */
 	public float calculateAverageSun(Land sunmap){
 		float total = 0;
-		for (int i = this.xpos - Math.round(this.ext); i < this.xpos + Math.round(this.ext) + 1; i++){
-			for (int j = this.ypos - Math.round(this.ext); j < this.ypos + Math.round(this.ext) + 1; j++){
+		int extent = Math.round(this.getExtent());
+		for (int i = this.xpos - extent; i < this.xpos + extent + 1; i++){
+			for (int j = this.ypos - extent; j < this.ypos + extent + 1; j++){
 				if (i < 0 || j < 0 || i > sunmap.getDimX()-1 || j > sunmap.getDimY()-1)
 					continue;
 				total += sunmap.getSun(i, j);
