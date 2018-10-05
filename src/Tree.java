@@ -142,7 +142,7 @@ public class Tree{
 	/**
 	 * Resets the extent of a tree to a value of 0.4.
 	 */
-	public void resetExtent(){
+	synchronized public void resetExtent(){
 		this.setExt(0.4f);
 	}
 }
