@@ -120,7 +120,7 @@ public class TreeGrow {
 		mainFrame.setVisible(true);
 		
 		// Add buttonPanel to the mainFrame
-		//mainFrame.add(buttonPanel);
+		mainFrame.add(buttonPanel);
         Thread fpt = new Thread(fp);
         fpt.start();
 	}

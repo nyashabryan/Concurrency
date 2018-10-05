@@ -32,7 +32,7 @@ public class ForestPanel extends JPanel implements Runnable {
 		for(int i =0; i < forest.length; i++){
 			pool.invoke(new RenderParallel(g, forest[i], 0, forest[i].length, width, height));
 		}
-		System.out.println(System.currentTimeMillis() - init);
+		//System.out.println(System.currentTimeMillis() - init);
 	}
 	
 	/**
