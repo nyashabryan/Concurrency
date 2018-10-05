@@ -1,6 +1,7 @@
 import javax.swing.*;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -74,7 +75,6 @@ public class TreeGrow {
 				TreeGrow.resumeSimulation();
 			}
 		});
-		
 		JButton resetButton = new JButton("RESET");
 		resetButton.addActionListener(new ActionListener(){
 		
@@ -92,14 +92,14 @@ public class TreeGrow {
 				TreeGrow.endSimulation();
 			}
 		});
-
-		JPanel buttonFrame =  new JPanel();
-		buttonFrame.add(endButton);
-		buttonFrame.add(pauseButton);
-		buttonFrame.add(playButton);
-		buttonFrame.add(resetButton);
+		JPanel buttonPanel =  new JPanel();
+		buttonPanel.add(endButton);
+		buttonPanel.add(pauseButton);
+		buttonPanel.add(playButton);
+		buttonPanel.add(resetButton);
+		buttonPanel.setLayout(new FlowLayout());
  
-		//mainFrame.add(buttonFrame);
+ 
 		fp = new ForestPanel(trees);
 		fp.setPreferredSize(new Dimension(frameX,frameY));
 		JScrollPane scrollFrame = new JScrollPane(fp);
@@ -117,7 +117,10 @@ public class TreeGrow {
       	mainFrame.setLocationRelativeTo(null);  // Center window on screen.
       	mainFrame.add(g); //add contents to window
         mainFrame.setContentPane(g);     
-        mainFrame.setVisible(true);
+		mainFrame.setVisible(true);
+		
+		// Add buttonPanel to the mainFrame
+		mainFrame.add(buttonPanel);
         Thread fpt = new Thread(fp);
         fpt.start();
 	}
