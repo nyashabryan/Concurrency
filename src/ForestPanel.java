@@ -42,6 +42,7 @@ public class ForestPanel extends JPanel implements Runnable {
 	public void run() {
 			
 		// reordering so that trees are rendered in a more random fashion
+		while(!TreeGrow.running.get()){}
 		rndorder = new ArrayList<Integer>();
 		for(int l = 0; l < forest.length; l++)
 			rndorder.add(l);
@@ -97,7 +98,7 @@ public class ForestPanel extends JPanel implements Runnable {
 		 */
 		@Override
 		protected void compute(){
-			if(this.high - this.low >= (int)trees.length){
+			if(this.high - this.low >= (int)trees.length/5){
 				RenderParallel left = new RenderParallel(g, trees, low, (int)((high + low)/2) , width, height);
 				RenderParallel right = new RenderParallel(g, trees, (int)((high + low)/2), high, width, height);
 				right.fork();
