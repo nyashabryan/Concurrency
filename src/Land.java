@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 /**
  * Land Class describe the terrain in the simulation. Contains
@@ -9,8 +10,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Land{
 	
 	AtomicInteger yearNumber = new AtomicInteger(0);
-	float[][] gridSunlightHours;
-	float[][] initialGridSunlightHours;
+	AtomicReferenceArray<Float> [] gridSunlightHours;
+	Float[][] initialGridSunlightHours;
 	private int dx;
 	private int dy;
 	private final static float shadefraction = 0.1f; // only this fraction of light is transmitted by a tree
@@ -24,8 +25,11 @@ public class Land{
 	Land(int dx, int dy) {
 		this.dx = dx;
 		this.dy = dy;
-		this.gridSunlightHours = new float[dx][dy];
-		this.initialGridSunlightHours = new float[dx][dy];
+		this.gridSunlightHours = new AtomicReferenceArray[dx];
+		for(AtomicReferenceArray row: gridSunlightHours){
+			row = new AtomicReferenceArray<Float>(dy);
+		}
+		this.initialGridSunlightHours = new Float[dx][dy];
 	}
 
 	/**
@@ -52,9 +56,12 @@ public class Land{
 	 */
 	public void resetSunlight() {
 		for (int i = 0; i < this.dx; i++){
-			this.gridSunlightHours[i] = Arrays.copyOf(initialGridSunlightHours[i],
-				this.initialGridSunlightHours.length	
+			this.gridSunlightHours[i] = new AtomicReferenceArray<Float>(
+				Arrays.copyOf(initialGridSunlightHours[i],
+					this.initialGridSunlightHours.length	
+				)
 			);
+
 		}
 	}
 
@@ -90,7 +97,7 @@ public class Land{
 	 * @return The current value of sunlight on that grid point.
 	 */
 	public float getSun(int x, int y) {
-		return this.gridSunlightHours[x][y];
+		return this.gridSunlightHours[x].get(y);
 	}
 	
 	/**
@@ -101,7 +108,7 @@ public class Land{
 	 * @param val The current value of sunlight at that grid point. 
 	 */
 	public void setSun(int x, int y, float val){
-		this.gridSunlightHours[x][y] = val;
+		this.gridSunlightHours[x].set(y, val);
 	}
 	
 }

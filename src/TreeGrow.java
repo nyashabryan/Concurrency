@@ -120,7 +120,7 @@ public class TreeGrow {
 		mainFrame.setVisible(true);
 		
 		// Add buttonPanel to the mainFrame
-		mainFrame.add(buttonPanel);
+		//mainFrame.add(buttonPanel);
         Thread fpt = new Thread(fp);
         fpt.start();
 	}
@@ -151,15 +151,6 @@ public class TreeGrow {
 		System.out.println(frameY);
 		setupGUI(frameX, frameY, sundata.trees);
 		
-		
-		System.out.println(sundata.sunmap.initialGridSunlightHours);
-		System.out.println(sundata.sunmap.gridSunlightHours);
-		System.out.println(sundata.sunmap.getSun(1, 1));
-		System.out.println(sundata.sunmap.getInitSun(1, 1));
-		sundata.sunmap.setSun(1, 1, 12);
-		System.out.println(sundata.sunmap.getSun(1, 1));
-		System.out.println(sundata.sunmap.getInitSun(1, 1));
-
 		// create and start simulation loop here as separate thread
 		Land land = sundata.sunmap;
 		System.out.println(land);
