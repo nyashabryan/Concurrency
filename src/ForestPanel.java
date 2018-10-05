@@ -97,9 +97,9 @@ public class ForestPanel extends JPanel implements Runnable {
 		 */
 		@Override
 		protected void compute(){
-			if(high -low > (int)trees.length){
-				RenderParallel left = new RenderParallel(g, trees, low, (int)high/2, width, height);
-				RenderParallel right = new RenderParallel(g, trees, (int)high/2, high, width, height);
+			if(this.high - this.low >= (int)trees.length){
+				RenderParallel left = new RenderParallel(g, trees, low, (int)((high + low)/2) , width, height);
+				RenderParallel right = new RenderParallel(g, trees, (int)((high + low)/2), high, width, height);
 				right.fork();
 				left.compute();
 				right.join();
